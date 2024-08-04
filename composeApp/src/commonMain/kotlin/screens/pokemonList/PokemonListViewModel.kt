@@ -1,12 +1,13 @@
 package screens.pokemonList
 
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import domain.PokedexListEntry
-import domain.PokemonRepository
+import domain.models.PokedexListEntry
+import domain.repository.PokemonRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import util.Result
 
@@ -15,8 +16,8 @@ class PokemonListViewModel(
 ): ViewModel() {
     private var curPage = 0
     val PAGE_SIZE = 20
-
-    var pokemonList = mutableStateOf<List<PokedexListEntry>>(listOf())
+    var pokemonList : MutableStateFlow<List<PokedexListEntry>> = MutableStateFlow(emptyList())
+        private set
     var loadError = mutableStateOf("")
     var isLoading = mutableStateOf(false)
     var endReached = mutableStateOf(false)
@@ -84,7 +85,11 @@ class PokemonListViewModel(
 
                     loadError.value = ""
                     isLoading.value = false
-                    pokemonList.value += pokedexEntries.filterNotNull()
+                    val previous =  pokemonList.value.toMutableList()
+                    previous.addAll(pokedexEntries.filterNotNull())
+                    pokemonList.update {
+                        previous
+                    }
                 }
                 is Result.Error -> {
                     loadError.value = result.error.name

@@ -17,7 +17,11 @@ import androidx.navigation.NavController
 import com.app.mypokedex.ui.screens.pokemonlist.components.PokemonList
 import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.viewmodel.koinViewModel
+import pokepost.composeapp.generated.resources.Res
+import pokepost.composeapp.generated.resources.compose_multiplatform
+import pokepost.composeapp.generated.resources.pokemon_23
 import screens.pokemonList.components.SearchBar
+import theme.backgroundRed
 
 @Composable
 fun PokemonListScreen(
@@ -25,20 +29,20 @@ fun PokemonListScreen(
     viewModel: PokemonListViewModel = koinViewModel()
 ) {
     Surface(
-        color = MaterialTheme.colors.background,
+        color = backgroundRed,
         modifier = Modifier.fillMaxSize()
     ) {
         Column(
 
         ) {
             Spacer(modifier = Modifier.height(20.dp))
-//            Image(
-//                painter = painterResource(id = org.koin.android.R.drawable.abc_vector_test),
-//                contentDescription = "pokemon logo",
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .align(CenterHorizontally)
-//            )
+            Image(
+                painter = painterResource(resource = Res.drawable.pokemon_23),
+                contentDescription = "pokemon logo",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(CenterHorizontally)
+            )
             SearchBar(
                 hint = "Search...",
                 modifier = Modifier

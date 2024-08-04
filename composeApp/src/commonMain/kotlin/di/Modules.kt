@@ -1,9 +1,7 @@
 package di
 
-import dependencies.MyRepository
-import dependencies.MyRepositoryImpl
-import dependencies.MyViewModel
-import domain.PokemonRepository
+import com.example.pokedex.PokemonDetail.PokemonDetailViewModel
+import domain.repository.PokemonRepository
 import org.koin.compose.viewmodel.dsl.viewModelOf
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.singleOf
@@ -18,9 +16,7 @@ expect val networkClient: Module
 expect val preferencesModule: Module
 
 val sharedModule = module {
-    singleOf(::MyRepositoryImpl).bind<MyRepository>()
     singleOf(::PokemonRepository).bind<PokemonRepository>()
-
-    viewModelOf(::MyViewModel)
     viewModelOf(::PokemonListViewModel)
+    viewModelOf(::PokemonDetailViewModel)
 }

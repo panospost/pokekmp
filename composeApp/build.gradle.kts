@@ -38,7 +38,8 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
-
+//            jhkjh
+            implementation(libs.core.splashscreen)
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
             implementation(libs.ktor.client.okhttp)
@@ -74,6 +75,7 @@ kotlin {
             implementation(libs.coil.compose)
             implementation(libs.coil.mp)
             implementation(libs.coil.network.ktor)
+            implementation("co.touchlab:kermit:2.0.4")
         }
         nativeMain.dependencies {
             implementation(libs.ktor.client.darwin)

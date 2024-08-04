@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil3.annotation.ExperimentalCoilApi
-import domain.PokedexListEntry
+import domain.models.PokedexListEntry
 
 @OptIn(ExperimentalCoilApi::class)
 @Composable

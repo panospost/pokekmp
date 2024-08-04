@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -20,9 +21,8 @@ fun PokemonList(
     navController: NavController,
     viewModel: PokemonListViewModel
 ) {
-    val pokemonList by remember {
-        viewModel.pokemonList
-    }
+    val pokemonList = viewModel.pokemonList.collectAsState()
+
     val endReached by remember {
         viewModel.endReached
     }
@@ -40,16 +40,16 @@ fun PokemonList(
     }
 
     LazyColumn(contentPadding = PaddingValues(16.dp)) {
-        val itemCount = if (pokemonList.size % 2 == 0) {
-            pokemonList.size / 2
+        val itemCount = if (pokemonList.value.size % 2 == 0) {
+            pokemonList.value.size / 2
         } else {
-            pokemonList.size / 2 + 1
+            pokemonList.value.size / 2 + 1
         }
         items(count = itemCount) {
             if (it >= itemCount - 1 && !endReached && !isLoading && !isSearching) {
                 viewModel.loadPokemonPaginated()
             }
-            PokedexRow(rowIndex = it, entries = pokemonList, navController = navController)
+            PokedexRow(rowIndex = it, entries = pokemonList.value, navController = navController)
 
         }
     }

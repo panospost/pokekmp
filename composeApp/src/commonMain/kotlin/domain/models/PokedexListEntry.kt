@@ -1,4 +1,4 @@
-package domain
+package domain.models
 
 data class PokedexListEntry(
     val pokemonName: String,
